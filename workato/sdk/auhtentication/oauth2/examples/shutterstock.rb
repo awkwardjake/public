@@ -50,7 +50,7 @@
           expires: false,
           code: auth_code,
         }
-        response = post("/v2/oauth/access_token")
+        response = post("https://api.shutterstock.com/v2/oauth/access_token")
           .payload(payload)
           .request_format_www_form_urlencoded
         {
@@ -67,6 +67,6 @@
     },
   },
   test: ->(connection) {
-    get("/v2/test?text=helloWorkato")
+    get("https://api.shutterstock.com/v2/test?text=helloWorkato")
   },
 }
