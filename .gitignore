@@ -5,6 +5,8 @@
 *.so
 *.dylib
 
+bin/
+
 # Test binary, built with `go test -c`
 *.test
 
@@ -13,3 +15,44 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Node
+node_modules/
+package-lock.json
+
+# phoenix ez file
+*.ez
+
+# VS Code related files
+*.code-workspace
+.vscode
+
+# MAC OS created file
+.DS_Store
+
+# Environment file (usually secrets)
+*.env
+
+# ANY csv file 
+*.csv
+
+# svelte
+/__sapper__/
+/src/node_modules/@sapper/
+
+# parcel
+/.cache/
+/.parcel-cache/
+dist/
+lib/
+parcel-bundle-reports/
+# v8 files
+*.v8
+
+# misc
+*.min.js
+tmp
+
+# Logs
+logs/
+*.log
