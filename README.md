@@ -1,5 +1,3 @@
 # Public
- 
- ## Repository for my public files
 
-* ["Workato examples"]("https://github.com/awkwardjake/public/workato")
+## Repository for my public files and packages
