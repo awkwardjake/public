@@ -10,11 +10,13 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/signal"
 	"path"
 	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
+	"syscall"
 	"time"
 )
 
@@ -354,4 +356,28 @@ func (tools *Tools) PostJSONToRemote(uri url.URL, data interface{}, client ...*h
 
 	// send response back
 	return response, response.StatusCode, nil
+}
+
+/*
+	CloseListener creates a 'listener' on a new goroutine which will notify the
+	program if it receives an interrupt from the OS. We could then handle this by calling
+	a "clean up procedure" and exiting the program.
+*/
+// ExitHandlerFunc should levearge os.Exit()
+// expect function signature with error and optional array of strings
+type ExitHandlerFunc func(error, ...string)
+
+func (tools *Tools) CloseListener(exitHandler ExitHandlerFunc, message string) {
+	// c := make(chan os.Signal, 1)
+	sigTermlisteningChannel := make(chan os.Signal, 1)
+	signal.Notify(sigTermlisteningChannel, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-sigTermlisteningChannel
+		/*
+			color.Blue("\r- Ctrl+C pressed... exiting... Thank you!")
+			// exit indicating success
+			os.Exit(0)
+		*/
+		exitHandler(nil, message)
+	}()
 }
