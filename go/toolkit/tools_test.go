@@ -16,6 +16,8 @@ import (
 	"os"
 	"sync"
 	"testing"
+
+	"github.com/fatih/color"
 )
 
 func TestTools_RandomString(test *testing.T) {
@@ -356,4 +358,27 @@ func TestTools_PostJSONToRemote(test *testing.T) {
 	if err != nil {
 		test.Error("failed to call remote url: ", err)
 	}
+}
+
+func TestTools_CloseListener(test *testing.T) {
+	var testTools Tools
+	testTools.CloseListener(exitGracefully, "exit triggered!")
+}
+
+func exitGracefully(err error, msg ...string) {
+	message := ""
+	if len(msg) > 0 {
+		message = msg[0]
+	}
+	if err != nil {
+		color.Red("Error: %v\n", err)
+	}
+
+	if len(message) > 0 {
+		color.Yellow(message)
+	} else {
+		color.Green("Finished")
+	}
+
+	os.Exit(0)
 }
